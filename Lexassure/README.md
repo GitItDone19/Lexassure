@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lexassure
+
+EU AI Act Compliance Platform - A Next.js application for managing AI compliance requirements.
 
 ## Getting Started
 

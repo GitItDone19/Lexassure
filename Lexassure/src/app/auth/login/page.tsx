@@ -4,6 +4,7 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { Mail, Lock, ArrowRight, AlertCircle } from "lucide-react"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -39,55 +40,124 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center mb-6">Sign In</h1>
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-[#F7F7F7] tracking-tight">
+          Welcome back
+        </h1>
+        <p className="mt-3 text-[#A1A1A1]">
+          Sign in to your account to continue
+        </p>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Email field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
-            Email
+          <label htmlFor="email" className="block text-sm font-medium text-[#F7F7F7] mb-2">
+            Email address
           </label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
-          />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Mail className="h-5 w-5 text-[#666666]" />
+            </div>
+            <input
+              id="email"
+              type="email"
+              required
+              autoComplete="email"
+              placeholder="you@company.com"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full pl-12 pr-4 py-3.5 bg-transparent border border-[#252525] rounded-xl text-[#F7F7F7] placeholder-[#666666] focus:outline-none focus:ring-2 focus:ring-[#28a2fc] focus:border-transparent transition-all"
+            />
+          </div>
         </div>
 
+        {/* Password field */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium mb-1">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            required
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
-          />
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-[#F7F7F7]">
+              Password
+            </label>
+            <Link href="#" className="text-sm font-medium text-[#28a2fc] hover:text-[#5BB8FC] transition-colors">
+              Forgot password?
+            </Link>
+          </div>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-[#666666]" />
+            </div>
+            <input
+              id="password"
+              type="password"
+              required
+              autoComplete="current-password"
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              className="w-full pl-12 pr-4 py-3.5 bg-transparent border border-[#252525] rounded-xl text-[#F7F7F7] placeholder-[#666666] focus:outline-none focus:ring-2 focus:ring-[#28a2fc] focus:border-transparent transition-all"
+            />
+          </div>
         </div>
 
+        {/* Error message */}
         {error && (
-          <div className="text-red-600 text-sm">{error}</div>
+          <div className="flex items-center gap-2 p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+            <AlertCircle className="h-5 w-5 text-red-400 flex-shrink-0" />
+            <span className="text-sm text-red-400">{error}</span>
+          </div>
         )}
 
+        {/* Submit button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 py-4 px-6 text-base font-semibold text-[#0F0F0F] bg-[#28a2fc] rounded-xl hover:bg-[#5BB8FC] disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-[1.01]"
         >
-          {loading ? "Signing in..." : "Sign In"}
+          {loading ? (
+            <span>Signing in...</span>
+          ) : (
+            <>
+              <span>Sign In</span>
+              <ArrowRight className="w-5 h-5" />
+            </>
+          )}
         </button>
       </form>
 
-      <p className="text-center text-sm mt-4">
+      {/* Divider */}
+      <div className="relative my-8">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-[#252525]"></div>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="px-4 bg-[#0F0F0F] text-[#666666]">Or continue with</span>
+        </div>
+      </div>
+
+      {/* Social logins */}
+      <div className="grid grid-cols-2 gap-4">
+        <button
+          type="button"
+          className="flex items-center justify-center gap-2 py-3.5 px-4 border border-[#252525] rounded-xl text-sm font-medium text-[#A1A1A1] hover:bg-[#1A1A1A] hover:border-[#333] transition-all"
+        >
+          <span>Google</span>
+        </button>
+        <button
+          type="button"
+          className="flex items-center justify-center gap-2 py-3.5 px-4 border border-[#252525] rounded-xl text-sm font-medium text-[#A1A1A1] hover:bg-[#1A1A1A] hover:border-[#333] transition-all"
+        >
+          <span>GitHub</span>
+        </button>
+      </div>
+
+      {/* Sign up link */}
+      <p className="mt-10 text-center text-sm text-[#A1A1A1]">
         Don't have an account?{" "}
-        <Link href="/auth/register" className="text-blue-600 hover:underline">
-          Sign up
+        <Link href="/auth/register" className="font-semibold text-[#28a2fc] hover:text-[#5BB8FC] transition-colors">
+          Create an account
         </Link>
       </p>
     </div>

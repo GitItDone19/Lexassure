@@ -1,5 +1,7 @@
 # Lexassure
 
+Live site: [https://lexura.vercel.app/](https://lexura.vercel.app/)
+
 EU AI Act Compliance Platform - A Next.js application for managing AI compliance requirements.
 
 ## Getting Started
